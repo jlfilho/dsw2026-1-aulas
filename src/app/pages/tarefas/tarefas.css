@@ -1,11 +1,24 @@
-.tarefa-exemplo {
-  border: 1px solid #d6d9e6;
-  border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 12px;
-  background-color: #f8f9ff;
+.formulario-card {
+  margin-bottom: 24px;
+  padding: 8px;
 }
 
-.tarefa-exemplo h3 {
-  margin-top: 0;
+.campo {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.acoes-formulario {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.lista-tarefas {
+  margin-top: 24px;
+}
+
+.lista-tarefas h2 {
+  margin-bottom: 16px;
 }

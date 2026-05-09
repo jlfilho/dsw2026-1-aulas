@@ -1,17 +1,127 @@
 <h1>Tarefas</h1>
 
 <p>
-  Nesta página será implementado o cadastro e a listagem de tarefas.
+  Cadastre, edite e remova tarefas de estudo.
 </p>
 
-<section>
-  <h2>Tarefas de exemplo</h2>
+<mat-card class="formulario-card">
+  <mat-card-header>
+    <mat-card-title>
+      @if (idEmEdicao === null) {
+        Nova tarefa
+      } @else {
+        Editar tarefa
+      }
+    </mat-card-title>
+  </mat-card-header>
 
-  @for (tarefa of tarefas(); track tarefa.id) {
-    <article class="tarefa-exemplo">
-      <h3>{{ tarefa.nome }}</h3>
-      <p>Status: {{ tarefa.status }}</p>
-      <p>Prioridade: {{ tarefa.prioridade }}</p>
-    </article>
+  <mat-card-content>
+    <form #formTarefa="ngForm" (ngSubmit)="salvarFormulario()">
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Nome da tarefa</mat-label>
+
+        <input
+          matInput
+          name="nome"
+          [(ngModel)]="novoNome"
+          required
+          minlength="3"
+          #nome="ngModel"
+        />
+
+        @if (nome.invalid && nome.touched) {
+          @if (nome.errors?.['required']) {
+            <mat-error>O nome da tarefa é obrigatório.</mat-error>
+          }
+
+          @if (nome.errors?.['minlength']) {
+            <mat-error>O nome deve ter pelo menos 3 caracteres.</mat-error>
+          }
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Status</mat-label>
+
+        <mat-select
+          name="status"
+          [(ngModel)]="novoStatus"
+          required
+          #status="ngModel"
+        >
+          <mat-option value="pendente">Pendente</mat-option>
+          <mat-option value="em andamento">Em andamento</mat-option>
+          <mat-option value="concluida">Concluída</mat-option>
+        </mat-select>
+
+        @if (status.invalid && status.touched) {
+          <mat-error>O status é obrigatório.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Prioridade</mat-label>
+
+        <mat-select
+          name="prioridade"
+          [(ngModel)]="novaPrioridade"
+          required
+          #prioridade="ngModel"
+        >
+          <mat-option value="baixa">Baixa</mat-option>
+          <mat-option value="media">Média</mat-option>
+          <mat-option value="alta">Alta</mat-option>
+        </mat-select>
+
+        @if (prioridade.invalid && prioridade.touched) {
+          <mat-error>A prioridade é obrigatória.</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="acoes-formulario">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="formTarefa.invalid"
+        >
+          @if (idEmEdicao === null) {
+            Cadastrar
+          } @else {
+            Salvar alterações
+          }
+        </button>
+
+        @if (idEmEdicao !== null) {
+          <button
+            mat-button
+            color="warn"
+            type="button"
+            (click)="cancelarEdicao()"
+          >
+            Cancelar edição
+          </button>
+        }
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<section class="lista-tarefas">
+  <h2>Tarefas cadastradas</h2>
+
+  @if (tarefas().length === 0) {
+    <p>Nenhuma tarefa cadastrada.</p>
+  } @else {
+    @for (tarefa of tarefas(); track tarefa.id) {
+      <app-tarefa-card
+        [id]="tarefa.id"
+        [nome]="tarefa.nome"
+        [status]="tarefa.status"
+        [prioridade]="tarefa.prioridade"
+        (editar)="editarTarefaPorId($event)"
+        (remover)="removerTarefa($event)"
+      />
+    }
   }
 </section>
