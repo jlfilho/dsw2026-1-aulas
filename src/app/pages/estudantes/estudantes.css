@@ -1,11 +1,45 @@
-.estudante-exemplo {
-  border: 1px solid #d6d9e6;
-  border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 12px;
+.formulario-card {
+  margin-bottom: 24px;
+  padding: 8px;
   background-color: #f8f9ff;
 }
 
-.estudante-exemplo h3 {
-  margin-top: 0;
+.campo {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.acoes-formulario {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.lista-estudantes {
+  margin-top: 24px;
+}
+
+.lista-estudantes h2 {
+  margin-bottom: 16px;
+}
+
+.grid-estudantes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.estudante-card {
+  background-color: #f8f9ff;
+}
+
+.estudante-card p {
+  margin: 8px 0;
+}
+
+mat-card-actions {
+  display: flex;
+  gap: 8px;
 }

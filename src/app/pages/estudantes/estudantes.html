@@ -1,18 +1,202 @@
 <h1>Estudantes</h1>
 
 <p>
-  Esta página será usada para cadastrar, editar e listar estudantes.
+  Cadastre, edite e remova estudantes do Gerenciador de Estudos.
 </p>
 
-<section>
-  <h2>Estudantes de exemplo</h2>
+<mat-card class="formulario-card">
+  <mat-card-header>
+    <mat-card-title>
+      @if (idEmEdicao === null) {
+        Novo estudante
+      } @else {
+        Editar estudante
+      }
+    </mat-card-title>
+  </mat-card-header>
 
-  @for (estudante of estudantes(); track estudante.id) {
-    <article class="estudante-exemplo">
-      <h3>{{ estudante.nome }}</h3>
-      <p>E-mail: {{ estudante.email }}</p>
-      <p>Curso: {{ estudante.curso }}</p>
-      <p>Turno: {{ estudante.turno }}</p>
-    </article>
+  <mat-card-content>
+    <form [formGroup]="formEstudante" (ngSubmit)="salvarFormulario()">
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Nome</mat-label>
+
+        <input
+          matInput
+          type="text"
+          formControlName="nome"
+          placeholder="Ex.: Ana Silva"
+        />
+
+        @if (campoInvalido('nome')) {
+          @if (formEstudante.controls.nome.errors?.['required']) {
+            <mat-error>O nome é obrigatório.</mat-error>
+          }
+
+          @if (formEstudante.controls.nome.errors?.['minlength']) {
+            <mat-error>O nome deve ter pelo menos 3 caracteres.</mat-error>
+          }
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>E-mail</mat-label>
+
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="Ex.: estudante@email.com"
+        />
+
+        @if (campoInvalido('email')) {
+          @if (formEstudante.controls.email.errors?.['required']) {
+            <mat-error>O e-mail é obrigatório.</mat-error>
+          }
+
+          @if (formEstudante.controls.email.errors?.['email']) {
+            <mat-error>Informe um e-mail válido.</mat-error>
+          }
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Curso</mat-label>
+
+        <input
+          matInput
+          type="text"
+          formControlName="curso"
+          placeholder="Ex.: Angular Básico"
+        />
+
+        @if (campoInvalido('curso')) {
+          @if (formEstudante.controls.curso.errors?.['required']) {
+            <mat-error>O curso é obrigatório.</mat-error>
+          }
+
+          @if (formEstudante.controls.curso.errors?.['minlength']) {
+            <mat-error>O curso deve ter pelo menos 3 caracteres.</mat-error>
+          }
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Turno</mat-label>
+
+        <mat-select formControlName="turno">
+          <mat-option value="matutino">Matutino</mat-option>
+          <mat-option value="vespertino">Vespertino</mat-option>
+          <mat-option value="noturno">Noturno</mat-option>
+        </mat-select>
+
+        @if (campoInvalido('turno')) {
+          <mat-error>O turno é obrigatório.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Data de ingresso</mat-label>
+
+        <input
+          matInput
+          type="date"
+          formControlName="dataIngresso"
+        />
+
+        @if (campoInvalido('dataIngresso')) {
+          <mat-error>A data de ingresso é obrigatória.</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="acoes-formulario">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="formEstudante.invalid"
+        >
+          @if (idEmEdicao === null) {
+            Cadastrar
+          } @else {
+            Salvar alterações
+          }
+        </button>
+
+        @if (idEmEdicao !== null) {
+          <button
+            mat-button
+            color="warn"
+            type="button"
+            (click)="cancelarEdicao()"
+          >
+            Cancelar edição
+          </button>
+        }
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<section class="lista-estudantes">
+  <h2>Estudantes cadastrados</h2>
+
+  @if (estudantes().length === 0) {
+    <p>
+      Nenhum estudante cadastrado. Use o formulário acima para adicionar o primeiro estudante.
+    </p>
+  } @else {
+    <div class="grid-estudantes">
+      @for (estudante of estudantes(); track estudante.id) {
+        <mat-card class="estudante-card">
+          <mat-card-header>
+            <mat-card-title>{{ estudante.nome }}</mat-card-title>
+            <mat-card-subtitle>{{ estudante.email }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p>
+              <strong>Curso:</strong>
+              {{ estudante.curso }}
+            </p>
+
+            <p>
+              <strong>Turno:</strong>
+              @if (estudante.turno === 'matutino') {
+                Matutino
+              } @else if (estudante.turno === 'vespertino') {
+                Vespertino
+              } @else {
+                Noturno
+              }
+            </p>
+
+            <p>
+              <strong>Data de ingresso:</strong>
+              {{ estudante.dataIngresso }}
+            </p>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button
+              mat-button
+              color="primary"
+              type="button"
+              (click)="editarEstudante(estudante.id)"
+            >
+              Editar
+            </button>
+
+            <button
+              mat-button
+              color="warn"
+              type="button"
+              (click)="removerEstudante(estudante.id)"
+            >
+              Remover
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
   }
 </section>

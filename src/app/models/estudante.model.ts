@@ -6,4 +6,5 @@ export type Estudante = {
   email: string;
   curso: string;
   turno: TurnoEstudante;
+  dataIngresso: string;
 };
