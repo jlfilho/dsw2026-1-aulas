@@ -1,0 +1,11 @@
+.tarefa-exemplo {
+  border: 1px solid #d6d9e6;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+  background-color: #f8f9ff;
+}
+
+.tarefa-exemplo h3 {
+  margin-top: 0;
+}

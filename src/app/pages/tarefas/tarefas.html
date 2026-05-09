@@ -1,0 +1,17 @@
+<h1>Tarefas</h1>
+
+<p>
+  Nesta página será implementado o cadastro e a listagem de tarefas.
+</p>
+
+<section>
+  <h2>Tarefas de exemplo</h2>
+
+  @for (tarefa of tarefas(); track tarefa.id) {
+    <article class="tarefa-exemplo">
+      <h3>{{ tarefa.nome }}</h3>
+      <p>Status: {{ tarefa.status }}</p>
+      <p>Prioridade: {{ tarefa.prioridade }}</p>
+    </article>
+  }
+</section>

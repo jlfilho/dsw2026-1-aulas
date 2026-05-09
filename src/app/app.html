@@ -1,42 +1,65 @@
-<main class="container">
-  <section class="header">
-    <h1>{{ title() }}</h1>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <div class="menu-titulo">
+      <h2>Menu</h2>
+    </div>
 
-    <img [src]="imagemAngular" alt="Logo do Angular" width="80">
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/"
+        routerLinkActive="ativo"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page">
+        <mat-icon>home</mat-icon>
+        <span>Início</span>
+      </a>
 
-    <p>Estudante: {{ estudante() }}</p>
-    <p>Curso: {{ curso() }}</p>
-    <p>Turno: {{ turno() }}</p>
+      <a
+        mat-list-item
+        routerLink="/estudantes"
+        routerLinkActive="ativo"
+        ariaCurrentWhenActive="page">
+        <mat-icon>school</mat-icon>
+        <span>Estudantes</span>
+      </a>
 
-    <p>Quantidade de tarefas: {{ quantidadeTarefas() }}</p>
+      <a
+        mat-list-item
+        routerLink="/tarefas"
+        routerLinkActive="ativo"
+        ariaCurrentWhenActive="page">
+        <mat-icon>check_circle</mat-icon>
+        <span>Tarefas</span>
+      </a>
 
-    <p>{{ mensagemResumo() }}</p>
-  </section>
+      <a
+        mat-list-item
+        routerLink="/relatorios"
+        routerLinkActive="ativo"
+        ariaCurrentWhenActive="page">
+        <mat-icon>bar_chart</mat-icon>
+        <span>Relatórios</span>
+      </a>
 
-  <section class="acoes">
-    <button (click)="alterarEstudante()">Alterar estudante</button>
+      <a
+        mat-list-item
+        routerLink="/sobre"
+        routerLinkActive="ativo"
+        ariaCurrentWhenActive="page">
+        <mat-icon>info</mat-icon>
+        <span>Sobre</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
 
-    <button (click)="alterarCurso()">Alterar curso</button>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="toolbar">
+      <span>{{ title() }}</span>
+    </mat-toolbar>
 
-    <button (click)="adicionarTarefa()">Adicionar tarefa</button>
-
-    <button
-      (click)="removerTarefa()"
-      [disabled]="botaoRemoverDesabilitado()">
-      Remover tarefa
-    </button>
-  </section>
-
-  <section class="lista">
-    @if (tarefas().length > 0) {
-      @for (tarefa of tarefas(); track tarefa.id) {
-        <app-tarefa-card
-          [nome]="tarefa.nome"
-          [status]="tarefa.status" />
-      }
-    } @else {
-      <p>Nenhuma tarefa cadastrada.</p>
-    }
-
-  </section>
-</main>
+    <main class="conteudo">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
