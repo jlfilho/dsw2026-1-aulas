@@ -1,5 +1,18 @@
 <h1>Estudantes</h1>
 
 <p>
-  Nesta página será implementado o cadastro de estudantes.
+  Esta página será usada para cadastrar, editar e listar estudantes.
 </p>
+
+<section>
+  <h2>Estudantes de exemplo</h2>
+
+  @for (estudante of estudantes(); track estudante.id) {
+    <article class="estudante-exemplo">
+      <h3>{{ estudante.nome }}</h3>
+      <p>E-mail: {{ estudante.email }}</p>
+      <p>Curso: {{ estudante.curso }}</p>
+      <p>Turno: {{ estudante.turno }}</p>
+    </article>
+  }
+</section>
