@@ -25,25 +25,15 @@
         Alta
       }
     </p>
+    <p>
+      <strong>Estudante:</strong>
+      {{ estudanteNome() }}
+    </p>
   </mat-card-content>
 
   <mat-card-actions>
-    <button
-      mat-button
-      color="primary"
-      type="button"
-      (click)="aoClicarEditar()"
-    >
-      Editar
-    </button>
+    <button mat-button color="primary" type="button" (click)="aoClicarEditar()">Editar</button>
 
-    <button
-      mat-button
-      color="warn"
-      type="button"
-      (click)="aoClicarRemover()"
-    >
-      Remover
-    </button>
+    <button mat-button color="warn" type="button" (click)="aoClicarRemover()">Remover</button>
   </mat-card-actions>
 </mat-card>

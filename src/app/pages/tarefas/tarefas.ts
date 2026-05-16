@@ -12,6 +12,7 @@ import { PrioridadeTarefa, StatusTarefa, Tarefa } from '../../models/tarefa.mode
 import { TarefaCard } from '../../components/tarefa-card/tarefa-card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmacaoDialog } from '../../components/confirmacao-dialog/confirmacao-dialog';
+import { EstudanteService } from '../../services/estudante.service';
 
 @Component({
   selector: 'app-tarefas',
@@ -30,20 +31,24 @@ import { ConfirmacaoDialog } from '../../components/confirmacao-dialog/confirmac
 })
 export class Tarefas {
   private readonly tarefaService = inject(TarefaService);
+  private readonly estudanteService = inject(EstudanteService);
   private readonly dialog = inject(MatDialog);
 
 
   tarefas = this.tarefaService.listar();
+  estudantes = this.estudanteService.listar();
 
   novoNome = '';
   novoStatus: StatusTarefa = 'pendente';
   novaPrioridade: PrioridadeTarefa = 'media';
+  novoEstudanteId: number | null = null;
 
   idEmEdicao: number | null = null;
 
   salvarFormulario(): void {
     const dadosFormulario = {
       nome: this.novoNome,
+      estudanteId: this.novoEstudanteId ?? 0,
       status: this.novoStatus,
       prioridade: this.novaPrioridade
     };
@@ -63,6 +68,7 @@ export class Tarefas {
     if (tarefa) {
       this.idEmEdicao = tarefa.id;
       this.novoNome = tarefa.nome;
+      this.novoEstudanteId = tarefa.estudanteId;
       this.novoStatus = tarefa.status;
       this.novaPrioridade = tarefa.prioridade;
     }
@@ -91,6 +97,12 @@ export class Tarefas {
     this.novoNome = '';
     this.novoStatus = 'pendente';
     this.novaPrioridade = 'media';
+    this.novoEstudanteId = null;
+  }
+
+  buscarNomeEstudante(id: number): string {
+    const estudante = this.estudanteService.buscarPorId(id);
+    return estudante ? estudante.nome : 'Não encontrado';
   }
 
 }

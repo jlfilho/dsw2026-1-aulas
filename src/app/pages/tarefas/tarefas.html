@@ -1,8 +1,6 @@
 <h1>Tarefas</h1>
 
-<p>
-  Cadastre, edite e remova tarefas de estudo.
-</p>
+<p>Cadastre, edite e remova tarefas de estudo.</p>
 
 <mat-card class="formulario-card">
   <mat-card-header>
@@ -20,14 +18,7 @@
       <mat-form-field appearance="outline" class="campo">
         <mat-label>Nome da tarefa</mat-label>
 
-        <input
-          matInput
-          name="nome"
-          [(ngModel)]="novoNome"
-          required
-          minlength="3"
-          #nome="ngModel"
-        />
+        <input matInput name="nome" [(ngModel)]="novoNome" required minlength="3" #nome="ngModel" />
 
         @if (nome.invalid && nome.touched) {
           @if (nome.errors?.['required']) {
@@ -43,12 +34,7 @@
       <mat-form-field appearance="outline" class="campo">
         <mat-label>Status</mat-label>
 
-        <mat-select
-          name="status"
-          [(ngModel)]="novoStatus"
-          required
-          #status="ngModel"
-        >
+        <mat-select name="status" [(ngModel)]="novoStatus" required #status="ngModel">
           <mat-option value="pendente">Pendente</mat-option>
           <mat-option value="em andamento">Em andamento</mat-option>
           <mat-option value="concluida">Concluída</mat-option>
@@ -62,12 +48,7 @@
       <mat-form-field appearance="outline" class="campo">
         <mat-label>Prioridade</mat-label>
 
-        <mat-select
-          name="prioridade"
-          [(ngModel)]="novaPrioridade"
-          required
-          #prioridade="ngModel"
-        >
+        <mat-select name="prioridade" [(ngModel)]="novaPrioridade" required #prioridade="ngModel">
           <mat-option value="baixa">Baixa</mat-option>
           <mat-option value="media">Média</mat-option>
           <mat-option value="alta">Alta</mat-option>
@@ -78,13 +59,27 @@
         }
       </mat-form-field>
 
-      <div class="acoes-formulario">
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="formTarefa.invalid"
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Estudante responsável</mat-label>
+
+        <mat-select
+          name="estudanteId"
+          [(ngModel)]="novoEstudanteId"
+          required
+          #estudanteId="ngModel"
         >
+          @for (estudante of estudantes(); track estudante.id) {
+            <mat-option [value]="estudante.id"> {{ estudante.nome }} </mat-option>
+          }
+        </mat-select>
+
+        @if (estudanteId.invalid && estudanteId.touched) {
+          <mat-error>Selecione um estudante.</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="acoes-formulario">
+        <button mat-raised-button color="primary" type="submit" [disabled]="formTarefa.invalid">
           @if (idEmEdicao === null) {
             Cadastrar
           } @else {
@@ -93,12 +88,7 @@
         </button>
 
         @if (idEmEdicao !== null) {
-          <button
-            mat-button
-            color="warn"
-            type="button"
-            (click)="cancelarEdicao()"
-          >
+          <button mat-button color="warn" type="button" (click)="cancelarEdicao()">
             Cancelar edição
           </button>
         }
@@ -119,6 +109,7 @@
         [nome]="tarefa.nome"
         [status]="tarefa.status"
         [prioridade]="tarefa.prioridade"
+        [estudanteNome]="buscarNomeEstudante(tarefa.estudanteId)"
         (editar)="editarTarefaPorId($event)"
         (remover)="removerTarefa($event)"
       />
