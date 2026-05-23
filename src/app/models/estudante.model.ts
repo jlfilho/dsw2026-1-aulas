@@ -1,7 +1,7 @@
 export type TurnoEstudante = 'matutino' | 'vespertino' | 'noturno';
 
 export type Estudante = {
-  id: number;
+  id: string;
   nome: string;
   email: string;
   curso: string;

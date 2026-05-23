@@ -1,0 +1,55 @@
+{
+  "estudantes": [
+    {
+      "id": "1",
+      "nome": "Ana Silva",
+      "email": "ana@email.com",
+      "curso": "Angular Básico",
+      "turno": "noturno",
+      "dataIngresso": "2026-05-01"
+    },
+    {
+      "id": "eSeoNW05be4",
+      "nome": "João da Mata Libório Filho",
+      "email": "jlfilho@uea.edu.br",
+      "curso": "Angular",
+      "turno": "matutino",
+      "dataIngresso": "2026-05-23"
+    }
+  ],
+  "tarefas": [
+    {
+      "id": "1",
+      "estudanteId": "1",
+      "nome": "Reestruturar aplicação Angular",
+      "status": "pendente",
+      "prioridade": "alta",
+      "dataEntrega": "2026-05-20"
+    },
+    {
+      "id": "2",
+      "estudanteId": "1",
+      "nome": "Criar menu lateral",
+      "status": "em andamento",
+      "prioridade": "media",
+      "dataEntrega": "2026-05-25"
+    },
+    {
+      "id": "3",
+      "estudanteId": null,
+      "nome": "Revisar pipes personalizados",
+      "status": "concluida",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-05-30"
+    },
+    {
+      "id": "gKnsSuu7dcU",
+      "estudanteId": "1",
+      "nome": "Novas funcionalidades da aplicação Angular",
+      "status": "pendente",
+      "prioridade": "media",
+      "dataEntrega": "2026-05-25"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

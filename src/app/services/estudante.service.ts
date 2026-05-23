@@ -1,77 +1,110 @@
-import { Injectable, Signal, signal } from '@angular/core';
+import { inject, Injectable, Signal, signal } from '@angular/core';
 import { Estudante } from '../models/estudante.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EstudanteService {
-    private readonly estudantes = signal<Estudante[]>([
-    {
-      id: 1,
-      nome: 'Ana Silva',
-      email: 'ana@email.com',
-      curso: 'Angular Básico',
-      turno: 'noturno',
-      dataIngresso: '2026-04-01'
-    },
-    {
-      id: 2,
-      nome: 'Carlos Souza',
-      email: 'carlos@email.com',
-      curso: 'Frontend com Angular',
-      turno: 'vespertino',
-      dataIngresso: '2026-04-10'
-    }
-  ]);
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = 'http://localhost:3000/estudantes';
 
-  private proximoId = 3;
+  private readonly estudantes = signal<Estudante[]>([]);
+  private readonly carregando = signal(false);
+  private readonly erro = signal<string | null>(null);
 
   listar(): Signal<Estudante[]> {
     return this.estudantes.asReadonly();
   }
 
-  buscarPorId(id: number): Estudante | undefined {
+  estaCarregando(): Signal<boolean> {
+    return this.carregando.asReadonly();
+  }
+
+  mensagemErro(): Signal<string | null> {
+    return this.erro.asReadonly();
+  }
+
+  carregar(): void {
+    this.carregando.set(true);
+    this.erro.set(null);
+
+    this.http.get<Estudante[]>(this.apiUrl).subscribe({
+      next: (dados) => {
+        this.estudantes.set(dados);
+        this.carregando.set(false);
+      },
+      error: () => {
+        this.erro.set('Não foi possível carregar os estudantes.');
+        this.carregando.set(false);
+      }
+    });
+  }
+
+  buscarPorId(id: string): Estudante | undefined {
     return this.estudantes().find(estudante => estudante.id === id);
   }
 
   cadastrar(estudante: Omit<Estudante, 'id'>): void {
-    const novoEstudante: Estudante = {
-      id: this.proximoId,
-      nome: estudante.nome,
-      email: estudante.email,
-      curso: estudante.curso,
-      turno: estudante.turno,
-      dataIngresso: estudante.dataIngresso
-    };
+    this.carregando.set(true);
+    this.erro.set(null);
 
-    this.estudantes.update(listaAtual => [
-      ...listaAtual,
-      novoEstudante
-    ]);
+    this.http.post<Estudante>(this.apiUrl, estudante).subscribe({
+      next: (novoEstudante) => {
+        this.estudantes.update(listaAtual => [
+          ...listaAtual,
+          novoEstudante
+        ]);
 
-    this.proximoId++;
+        this.carregando.set(false);
+      },
+      error: () => {
+        this.erro.set('Não foi possível cadastrar o estudante.');
+        this.carregando.set(false);
+      }
+    });
   }
 
-  editar(id: number, estudanteAtualizado: Omit<Estudante, 'id'>): void {
-    this.estudantes.update(listaAtual =>
-      listaAtual.map(estudante =>
-        estudante.id === id
-          ? {
-              id,
-              nome: estudanteAtualizado.nome,
-              email: estudanteAtualizado.email,
-              curso: estudanteAtualizado.curso,
-              turno: estudanteAtualizado.turno,
-              dataIngresso: estudanteAtualizado.dataIngresso
-            }
-          : estudante
-      )
-    );
+  editar(id: string, estudanteAtualizado: Omit<Estudante, 'id'>): void {
+    this.carregando.set(true);
+    this.erro.set(null);
+
+    this.http.put<Estudante>(`${this.apiUrl}/${id}`, {
+      id,
+      ...estudanteAtualizado
+    }).subscribe({
+      next: (estudanteEditado) => {
+        this.estudantes.update(listaAtual =>
+          listaAtual.map(estudante =>
+            estudante.id === id ? estudanteEditado : estudante
+          )
+        );
+
+        this.carregando.set(false);
+      },
+      error: () => {
+        this.erro.set('Não foi possível editar o estudante.');
+        this.carregando.set(false);
+      }
+    });
   }
 
-  remover(id: number): void {
-    this.estudantes.update(listaAtual =>
-      listaAtual.filter(estudante => estudante.id !== id)
-    );
+  remover(id: string): void {
+    this.carregando.set(true);
+    this.erro.set(null);
+
+    this.http.delete<void>(`${this.apiUrl}/${id}`).subscribe({
+      next: () => {
+        this.estudantes.update(listaAtual =>
+          listaAtual.filter(estudante => estudante.id !== id)
+        );
+
+        this.carregando.set(false);
+      },
+      error: () => {
+        this.erro.set('Não foi possível remover o estudante.');
+        this.carregando.set(false);
+      }
+    });
   }
 }

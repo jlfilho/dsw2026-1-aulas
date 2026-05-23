@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { Estudante, TurnoEstudante } from '../../models/estudante.model';
@@ -29,13 +29,15 @@ import { TurnoLabelPipe } from '../../pipes/turno-label-pipe';
   templateUrl: './estudantes.html',
   styleUrl: './estudantes.css',
 })
-export class Estudantes {
+export class Estudantes implements OnInit{
   private readonly estudanteService = inject(EstudanteService);
   private readonly dialog = inject(MatDialog);
 
   estudantes = this.estudanteService.listar();
+  carregando = this.estudanteService.estaCarregando();
+  erro = this.estudanteService.mensagemErro();
 
-  idEmEdicao: number | null = null;
+  idEmEdicao: string | null = null;
 
   formEstudante = new FormGroup({
     nome: new FormControl('', {
@@ -73,6 +75,10 @@ export class Estudantes {
     })
   });
 
+  ngOnInit(): void {
+    this.estudanteService.carregar();
+  }
+
   salvarFormulario(): void {
     if (this.formEstudante.invalid) {
       this.formEstudante.markAllAsTouched();
@@ -98,7 +104,7 @@ export class Estudantes {
     this.limparFormulario();
   }
 
-  editarEstudante(id: number): void {
+  editarEstudante(id: string): void {
     const estudante = this.estudanteService.buscarPorId(id);
 
     if (estudante) {
@@ -114,7 +120,7 @@ export class Estudantes {
     }
   }
 
-  removerEstudante(id: number): void {
+  removerEstudante(id: string): void {
     const dialogRef = this.dialog.open(ConfirmacaoDialog);
 
     dialogRef.afterClosed().subscribe((confirmou: boolean) => {

@@ -38,7 +38,7 @@ export class Tarefas {
   private readonly dialog = inject(MatDialog);
 
   filtroSelecionado = signal<'todas' | 'pendente' | 'concluida' | 'alta'>('todas');
-  estudanteSelecionadoId = signal<number | null>(null);
+  estudanteSelecionadoId = signal<string | null>(null);
   tarefas = this.tarefaService.listar();
   estudantes = this.estudanteService.listar();
 
@@ -68,15 +68,15 @@ export class Tarefas {
   novoNome = '';
   novoStatus: StatusTarefa = 'pendente';
   novaPrioridade: PrioridadeTarefa = 'media';
-  novoEstudanteId: number | null = null;
+  novoEstudanteId: string | null = null;
   novaDataEntrega?: Date | null = null;
 
-  idEmEdicao: number | null = null;
+  idEmEdicao: string | null = null;
 
   salvarFormulario(): void {
     const dadosFormulario = {
       nome: this.novoNome,
-      estudanteId: this.novoEstudanteId ?? 0,
+      estudanteId: this.novoEstudanteId ?? '0',
       status: this.novoStatus,
       prioridade: this.novaPrioridade,
       dataEntrega: this.novaDataEntrega ?? undefined
@@ -91,7 +91,7 @@ export class Tarefas {
     this.limparFormulario();
   }
 
-  editarTarefaPorId(id: number): void {
+  editarTarefaPorId(id: string): void {
     const tarefa = this.tarefaService.buscarPorId(id);
 
     if (tarefa) {
@@ -104,7 +104,7 @@ export class Tarefas {
     }
   }
 
-  removerTarefa(id: number): void {
+  removerTarefa(id: string): void {
     const dialogRef = this.dialog.open(ConfirmacaoDialog);
 
     dialogRef.afterClosed().subscribe((confirmou: string | undefined) => {
@@ -131,7 +131,7 @@ export class Tarefas {
     this.novaDataEntrega = null;
   }
 
-  buscarNomeEstudante(id: number): string {
+  buscarNomeEstudante(id: string): string {
     const estudante = this.estudanteService.buscarPorId(id);
     return estudante ? estudante.nome : 'Não encontrado';
   }

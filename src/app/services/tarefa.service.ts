@@ -8,24 +8,24 @@ import { Tarefa } from '../models/tarefa.model';
 export class TarefaService {
   private readonly tarefas = signal<Tarefa[]>([
     {
-      id: 1,
-      estudanteId: 1,
+      id: "1",
+      estudanteId: "1",
       nome: 'Reestruturar aplicação Angular',
       status: 'pendente',
       prioridade: 'alta',
       dataEntrega: new Date('2024-06-30')
     },
     {
-      id: 2,
-      estudanteId: 1,
+      id: "2",
+      estudanteId: "1",
       nome: 'Criar menu lateral',
       status: 'em andamento',
       prioridade: 'media',
       dataEntrega: new Date('2024-07-15')
     },
     {
-      id: 3,
-      estudanteId: 2,
+      id: "3",
+      estudanteId: "2",
       nome: 'Implementar sistema de autenticação',
       status: 'concluida',
       prioridade: 'baixa',
@@ -33,13 +33,13 @@ export class TarefaService {
     }
   ]);
 
-  private proximoId = 4;
+  private proximoId = "4";
 
   listar(): Signal<Tarefa[]> {
     return this.tarefas.asReadonly();
   }
 
-  buscarPorId(id: number): Tarefa | undefined {
+  buscarPorId(id: string): Tarefa | undefined {
     return this.tarefas().find(tarefa => tarefa.id === id);
   }
 
@@ -58,10 +58,10 @@ export class TarefaService {
       novaTarefa
     ]);
 
-    this.proximoId++;
+    this.proximoId;
   }
 
-  editar(id: number, tarefaAtualizada: Omit<Tarefa, 'id'>): void {
+  editar(id: string, tarefaAtualizada: Omit<Tarefa, 'id'>): void {
     this.tarefas.update(listaAtual =>
       listaAtual.map(tarefa =>
         tarefa.id === id
@@ -78,7 +78,7 @@ export class TarefaService {
     );
   }
 
-  remover(id: number): void {
+  remover(id: string): void {
     this.tarefas.update(listaAtual =>
       listaAtual.filter(tarefa => tarefa.id !== id)
     );

@@ -15,7 +15,6 @@ import { StatusTarefaLabelPipe } from '../../pipes/status-tarefa-label-pipe';
     PrioridadeLabelPipe,
     StatusTarefaLabelPipe,
     TitleCasePipe,
-    UpperCasePipe,
     MatCardModule,
     MatButtonModule
   ],
@@ -23,15 +22,15 @@ import { StatusTarefaLabelPipe } from '../../pipes/status-tarefa-label-pipe';
   styleUrl: './tarefa-card.css',
 })
 export class TarefaCard {
-  id = input.required<number>();
+  id = input.required<string>();
   nome = input.required<string>();
   status = input<StatusTarefa>('pendente');
   prioridade = input.required<PrioridadeTarefa>();
   estudanteNome = input.required<string>();
   dataEntrega = input<Date>();
 
-  editar = output<number>();
-  remover = output<number>();
+  editar = output<string>();
+  remover = output<string>();
 
   dadosDebug = input<unknown>();
 
