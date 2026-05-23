@@ -1,0 +1,39 @@
+.relatorio-estudos {
+  margin-top: 24px;
+}
+
+.indicadores-relatorio {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin: 16px 0 24px;
+}
+
+.indicadores-relatorio mat-card {
+  padding: 16px;
+  background-color: #f8f9ff;
+}
+
+.indicadores-relatorio strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.indicadores-relatorio span {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.tabelas-relatorio {
+  display: grid;
+  gap: 24px;
+}
+
+.tabelas-relatorio mat-card {
+  padding: 16px;
+  background-color: #f8f9ff;
+}
+
+.tabela-relatorio {
+  width: 100%;
+}

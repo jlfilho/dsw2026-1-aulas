@@ -1,14 +1,19 @@
 import { Component, input, output } from '@angular/core';
-import { PrioridadeTarefa, StatusTarefa } from '../../models/tarefa.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { DatePipe, JsonPipe, LowerCasePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
+
+import { PrioridadeTarefa, StatusTarefa } from '../../models/tarefa.model';
+import { PrioridadeLabelPipe } from '../../pipes/prioridade-label-pipe';
+import { StatusTarefaLabelPipe } from '../../pipes/status-tarefa-label-pipe';
 
 @Component({
   selector: 'app-tarefa-card',
   imports: [
     DatePipe,
     JsonPipe,
+    PrioridadeLabelPipe,
+    StatusTarefaLabelPipe,
     TitleCasePipe,
     UpperCasePipe,
     MatCardModule,

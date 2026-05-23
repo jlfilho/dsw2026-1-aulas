@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { Estudante, TurnoEstudante } from '../../models/estudante.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,11 +11,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EstudanteService } from '../../services/estudante.service';
 import { ConfirmacaoDialog } from '../../components/confirmacao-dialog/confirmacao-dialog';
+import { TurnoLabelPipe } from '../../pipes/turno-label-pipe';
 
 @Component({
   selector: 'app-estudantes',
   imports: [
     ReactiveFormsModule,
+    DatePipe,
+    TurnoLabelPipe,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,

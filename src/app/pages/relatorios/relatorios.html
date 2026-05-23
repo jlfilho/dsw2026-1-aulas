@@ -1,5 +1,23 @@
 <h1>Relatórios</h1>
 
 <p>
-  Nesta página serão exibidos relatórios sobre estudantes e tarefas.
+  Esta página apresenta uma visão geral dos estudantes e das tarefas cadastradas.
 </p>
+
+<section class="area-relatorio">
+  @defer (on viewport) {
+    <app-relatorio-estudos />
+  } @placeholder {
+    <mat-card class="mensagem-relatorio">
+      Relatório disponível para carregamento.
+    </mat-card>
+  } @loading {
+    <mat-card class="mensagem-relatorio">
+      Carregando relatório...
+    </mat-card>
+  } @error {
+    <mat-card class="mensagem-relatorio erro">
+      Erro ao carregar relatório.
+    </mat-card>
+  }
+</section>

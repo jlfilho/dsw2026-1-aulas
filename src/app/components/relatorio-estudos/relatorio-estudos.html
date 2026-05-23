@@ -1,0 +1,81 @@
+<section class="relatorio-estudos">
+  <h2>Relatório de estudos</h2>
+
+  <section class="indicadores-relatorio">
+    <mat-card>
+      <strong>Total de estudantes</strong>
+      <span>{{ totalEstudantes() }}</span>
+    </mat-card>
+
+    <mat-card>
+      <strong>Total de tarefas</strong>
+      <span>{{ totalTarefas() }}</span>
+    </mat-card>
+
+    <mat-card>
+      <strong>Tarefas pendentes</strong>
+      <span>{{ totalPendentes() }}</span>
+    </mat-card>
+
+    <mat-card>
+      <strong>Tarefas concluídas</strong>
+      <span>{{ totalConcluidas() }}</span>
+    </mat-card>
+  </section>
+
+  <section class="tabelas-relatorio">
+    <mat-card>
+      <h3>Tarefas por prioridade</h3>
+
+      <table
+        mat-table
+        [dataSource]="tarefasPorPrioridade()"
+        class="tabela-relatorio"
+      >
+        <ng-container matColumnDef="prioridade">
+          <th mat-header-cell *matHeaderCellDef>Prioridade</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item.prioridade }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantidade">
+          <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item.quantidade }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="colunasPorPrioridade"></tr>
+        <tr mat-row *matRowDef="let row; columns: colunasPorPrioridade;"></tr>
+      </table>
+    </mat-card>
+
+    <mat-card>
+      <h3>Tarefas por estudante</h3>
+
+      <table
+        mat-table
+        [dataSource]="tarefasPorEstudante()"
+        class="tabela-relatorio"
+      >
+        <ng-container matColumnDef="estudante">
+          <th mat-header-cell *matHeaderCellDef>Estudante</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item.estudante }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantidade">
+          <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item.quantidade }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="colunasPorEstudante"></tr>
+        <tr mat-row *matRowDef="let row; columns: colunasPorEstudante;"></tr>
+      </table>
+    </mat-card>
+  </section>
+</section>

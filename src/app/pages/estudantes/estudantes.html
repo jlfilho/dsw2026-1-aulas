@@ -161,18 +161,12 @@
 
             <p>
               <strong>Turno:</strong>
-              @if (estudante.turno === 'matutino') {
-                Matutino
-              } @else if (estudante.turno === 'vespertino') {
-                Vespertino
-              } @else {
-                Noturno
-              }
+              {{ estudante.turno | turnoLabel }}
             </p>
 
             <p>
               <strong>Data de ingresso:</strong>
-              {{ estudante.dataIngresso }}
+              {{ estudante.dataIngresso | date: 'dd/MM/yyyy' }}
             </p>
           </mat-card-content>
 
