@@ -8,5 +8,5 @@ export type Tarefa = {
   nome: string;
   status: StatusTarefa;
   prioridade: PrioridadeTarefa;
-  dataEntrega?: string;
+  dataEntrega?: Date;
 };

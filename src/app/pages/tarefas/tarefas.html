@@ -78,6 +78,25 @@
         }
       </mat-form-field>
 
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Data de entrega</mat-label>
+
+        <input
+          matInput
+          [matDatepicker]="pickerDataEntrega"
+          name="dataEntrega"
+          [(ngModel)]="novaDataEntrega"
+          required
+          #dataEntrega="ngModel"
+        />
+        <mat-hint>DD/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerDataEntrega"> </mat-datepicker-toggle>
+        <mat-datepicker #pickerDataEntrega></mat-datepicker>
+        @if (dataEntrega.invalid && dataEntrega.touched) {
+          <mat-error>A data de entrega é obrigatória.</mat-error>
+        }
+      </mat-form-field>
+
       <div class="acoes-formulario">
         <button mat-raised-button color="primary" type="submit" [disabled]="formTarefa.invalid">
           @if (idEmEdicao === null) {
@@ -97,18 +116,49 @@
   </mat-card-content>
 </mat-card>
 
+<section class="filtros-tarefas">
+  <!-- filtro por estudante -->
+  <div class="filtro-estudante">
+    <mat-form-field appearance="outline">
+      <mat-label>Filtrar por estudante</mat-label>
+
+      <mat-select
+        [value]="estudanteSelecionadoId()"
+        (selectionChange)="estudanteSelecionadoId.set($event.value)"
+      >
+        <mat-option [value]="null">Todos</mat-option>
+
+        @for (estudante of estudantes(); track estudante.id) {
+          <mat-option [value]="estudante.id"> {{ estudante.nome }} </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="botoes-filtro">
+    <button mat-raised-button (click)="filtroSelecionado.set('todas')">Todas</button>
+
+    <button mat-raised-button (click)="filtroSelecionado.set('pendente')">Pendentes</button>
+
+    <button mat-raised-button (click)="filtroSelecionado.set('concluida')">Concluídas</button>
+
+    <button mat-raised-button (click)="filtroSelecionado.set('alta')">Alta prioridade</button>
+  </div>
+</section>
+
 <section class="lista-tarefas">
   <h2>Tarefas cadastradas</h2>
 
-  @if (tarefas().length === 0) {
+  @if (tarefasFiltradas().length === 0) {
     <p>Nenhuma tarefa cadastrada.</p>
   } @else {
-    @for (tarefa of tarefas(); track tarefa.id) {
+    @for (tarefa of tarefasFiltradas(); track tarefa.id) {
       <app-tarefa-card
         [id]="tarefa.id"
         [nome]="tarefa.nome"
         [status]="tarefa.status"
         [prioridade]="tarefa.prioridade"
+        [dataEntrega]="tarefa.dataEntrega"
+        [dadosDebug]="tarefa"
         [estudanteNome]="buscarNomeEstudante(tarefa.estudanteId)"
         (editar)="editarTarefaPorId($event)"
         (remover)="removerTarefa($event)"

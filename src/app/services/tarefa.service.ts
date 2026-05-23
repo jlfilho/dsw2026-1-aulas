@@ -13,21 +13,23 @@ export class TarefaService {
       nome: 'Reestruturar aplicação Angular',
       status: 'pendente',
       prioridade: 'alta',
-      dataEntrega: '2023-10-15'
+      dataEntrega: new Date('2024-06-30')
     },
     {
       id: 2,
       estudanteId: 1,
       nome: 'Criar menu lateral',
       status: 'em andamento',
-      prioridade: 'media'
+      prioridade: 'media',
+      dataEntrega: new Date('2024-07-15')
     },
     {
       id: 3,
       estudanteId: 2,
       nome: 'Implementar sistema de autenticação',
       status: 'concluida',
-      prioridade: 'baixa'
+      prioridade: 'baixa',
+      dataEntrega: new Date('2024-08-01')
     }
   ]);
 

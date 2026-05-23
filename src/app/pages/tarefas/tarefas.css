@@ -22,3 +22,22 @@
 .lista-tarefas h2 {
   margin-bottom: 16px;
 }
+
+
+.filtros-tarefas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.botoes-filtro {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filtro-estudante {
+  min-width: 250px;
+}
