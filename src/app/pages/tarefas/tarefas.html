@@ -2,6 +2,25 @@
 
 <p>Cadastre, edite e remova tarefas de estudo.</p>
 
+@if (carregandoTarefas() || carregandoEstudantes()) {
+  <div class="estado-carregamento">
+    <mat-spinner diameter="32" aria-label="Carregando dados de tarefas"></mat-spinner>
+    <span>Carregando dados...</span>
+  </div>
+}
+
+@if (erroTarefas()) {
+  <mat-card class="erro-card">
+    {{ erroTarefas() }}
+  </mat-card>
+}
+
+@if (erroEstudantes()) {
+  <mat-card class="erro-card">
+    {{ erroEstudantes() }}
+  </mat-card>
+}
+
 <mat-card class="formulario-card">
   <mat-card-header>
     <mat-card-title>

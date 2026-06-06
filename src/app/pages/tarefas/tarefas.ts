@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -15,12 +15,14 @@ import { ConfirmacaoDialog } from '../../components/confirmacao-dialog/confirmac
 import { EstudanteService } from '../../services/estudante.service';
 import { DatePipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-tarefas',
   imports: [
     FormsModule,
     MatDatepickerModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
@@ -32,7 +34,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   templateUrl: './tarefas.html',
   styleUrl: './tarefas.css',
 })
-export class Tarefas {
+export class Tarefas implements OnInit {
+
   private readonly tarefaService = inject(TarefaService);
   private readonly estudanteService = inject(EstudanteService);
   private readonly dialog = inject(MatDialog);
@@ -42,28 +45,11 @@ export class Tarefas {
   tarefas = this.tarefaService.listar();
   estudantes = this.estudanteService.listar();
 
+  carregandoTarefas = this.tarefaService.estaCarregando();
+  erroTarefas = this.tarefaService.mensagemErro();
 
-  tarefasFiltradas = computed(() => {
-    let lista = this.tarefas();
-
-    if (this.estudanteSelecionadoId() !== null) {
-      lista = lista.filter(t => t.estudanteId === this.estudanteSelecionadoId());
-    }
-
-    switch (this.filtroSelecionado()) {
-      case 'pendente':
-        return lista.filter((t) => t.status === 'pendente');
-
-      case 'concluida':
-        return lista.filter((t) => t.status === 'concluida');
-
-      case 'alta':
-        return lista.filter((t) => t.prioridade === 'alta');
-
-      default:
-        return lista;
-    }
-  });
+  carregandoEstudantes = this.estudanteService.estaCarregando();
+  erroEstudantes = this.estudanteService.mensagemErro();
 
   novoNome = '';
   novoStatus: StatusTarefa = 'pendente';
@@ -72,6 +58,63 @@ export class Tarefas {
   novaDataEntrega?: Date | null = null;
 
   idEmEdicao: string | null = null;
+
+  totalTarefas = computed(() => this.tarefas().length);
+
+  totalPendentes = computed(() =>
+    this.tarefas().filter(t => t.status === 'pendente').length
+  );
+
+  totalConcluidas = computed(() =>
+    this.tarefas().filter(t => t.status === 'concluida').length
+  );
+
+  totalAlta = computed(() =>
+    this.tarefas().filter(t => t.prioridade === 'alta').length
+  );
+
+  tarefasPorEstudante = computed(() => {
+    const mapa: Record<string, number> = {};
+
+    this.estudantes().forEach(estudante => {
+      mapa[estudante.nome] = this.tarefas().filter(
+        tarefa => tarefa.estudanteId === estudante.id
+      ).length;
+    });
+
+    return mapa;
+  });
+
+  tarefasFiltradas = computed(() => {
+    let lista = this.tarefas();
+
+    // filtro por estudante
+    if (this.estudanteSelecionadoId() !== null) {
+      lista = lista.filter(
+        tarefa => tarefa.estudanteId === this.estudanteSelecionadoId()
+      );
+    }
+
+    // filtro geral
+    switch (this.filtroSelecionado()) {
+      case 'pendente':
+        return lista.filter(t => t.status === 'pendente');
+
+      case 'concluida':
+        return lista.filter(t => t.status === 'concluida');
+
+      case 'alta':
+        return lista.filter(t => t.prioridade === 'alta');
+
+      default:
+        return lista;
+    }
+  });
+
+  ngOnInit(): void {
+    this.tarefaService.carregar();
+    this.estudanteService.carregar();
+  }
 
   salvarFormulario(): void {
     const dadosFormulario = {
