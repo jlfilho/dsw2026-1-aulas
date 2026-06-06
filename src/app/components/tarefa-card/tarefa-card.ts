@@ -22,15 +22,16 @@ import { StatusTarefaLabelPipe } from '../../pipes/status-tarefa-label-pipe';
   styleUrl: './tarefa-card.css',
 })
 export class TarefaCard {
-  id = input.required<string>();
+  id = input.required<number>();
   nome = input.required<string>();
-  status = input<StatusTarefa>('pendente');
+  status = input<StatusTarefa>('PENDENTE');
   prioridade = input.required<PrioridadeTarefa>();
   estudanteNome = input.required<string>();
   dataEntrega = input<Date>();
 
-  editar = output<string>();
-  remover = output<string>();
+  editar = output<number>();
+  remover = output<number>();
+  podeRemover = input<boolean>(false);
 
   dadosDebug = input<unknown>();
 

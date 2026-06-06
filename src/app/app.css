@@ -1,53 +1,24 @@
-.sidenav-container {
-  min-height: 100vh;
-}
-
-.sidenav {
-  width: 240px;
-  border-right: 1px solid #d6d9e6;
-}
-
-.menu-titulo {
-  padding: 16px;
-  background-color: #f0f4ff;
-}
-
-.menu-titulo h2 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.toolbar {
-  display: flex;
-  justify-content: center;
-  min-height: 64px;
+.usuario-logado {
+  margin: 8px 0 0;
+  font-size: 14px;
   font-weight: 600;
-  font-size: 20px;
-  letter-spacing: 0.3px;
-  box-shadow: 0 2px 8px rgba(40, 80, 160, 0.18);
+  color: #3f51b5;
+  word-break: break-word;
 }
 
-.toolbar span {
-  text-align: center;
+.perfil-logado {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #555;
 }
 
-.conteudo {
-  padding: 24px;
-  max-width: 1000px;
-  margin: 0 auto;
+.botao-sair {
+  width: 100%;
+  justify-content: flex-start;
+  padding-left: 16px;
+  margin-top: 8px;
 }
 
-mat-nav-list a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-mat-nav-list a mat-icon {
+.botao-sair mat-icon {
   margin-right: 8px;
-}
-
-.ativo {
-  background-color: #e8f0fe;
-  font-weight: 600;
 }

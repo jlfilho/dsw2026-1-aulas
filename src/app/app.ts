@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -7,29 +7,32 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-
-type Tarefa = {
-  id: number;
-  nome: string;
-  status: string;
-}
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
     MatButtonModule,
     MatIconModule,
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive
   ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('Gerenciador de Tarefas');
+  private readonly authService = inject(AuthService);
 
+  title = signal('Gerenciador de Estudos');
+
+  estaAutenticado = this.authService.estaAutenticado;
+  usuarioLogado = this.authService.usuarioLogado;
+
+  sair(): void {
+    this.authService.logout();
+  }
 }

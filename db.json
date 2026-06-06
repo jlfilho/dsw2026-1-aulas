@@ -1,423 +1,495 @@
 {
   "estudantes": [
-    {
-      "id": "1",
-      "nome": "Ana Silva",
-      "email": "ana@email.com",
-      "curso": "Angular Básico",
-      "turno": "noturno",
-      "dataIngresso": "2026-05-01"
-    },
-    {
-      "id": "eSeoNW05be4",
-      "nome": "João da Mata Libório Filho",
-      "email": "jlfilho@uea.edu.br",
-      "curso": "Angular",
-      "turno": "matutino",
-      "dataIngresso": "2026-05-23"
-    }
-  ],
-  "tarefas": [
   {
-    "nome": "Tarefa 1",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "media",
-    "dataEntrega": "2026-05-31T04:00:00.000Z",
-    "id": "tarefa-001"
+    "id": "1",
+    "nome": "Ana Silva",
+    "email": "ana@email.com",
+    "curso": "Angular Básico",
+    "turno": "noturno",
+    "dataIngresso": "2026-05-01"
   },
   {
-    "nome": "Tarefa 2",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "alta",
-    "dataEntrega": "2026-06-01T04:00:00.000Z",
-    "id": "tarefa-002"
+    "id": "2",
+    "nome": "Carlos Souza",
+    "email": "carlos@email.com",
+    "curso": "Frontend com Angular",
+    "turno": "vespertino",
+    "dataIngresso": "2026-05-03"
   },
   {
-    "nome": "Tarefa 3",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-06-02T04:00:00.000Z",
-    "id": "tarefa-003"
+    "id": "3",
+    "nome": "Maria Oliveira",
+    "email": "maria@email.com",
+    "curso": "Angular Intermediário",
+    "turno": "noturno",
+    "dataIngresso": "2026-05-04"
   },
   {
-    "nome": "Tarefa 4",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-03T04:00:00.000Z",
-    "id": "tarefa-004"
+    "id": "4",
+    "nome": "João Pereira",
+    "email": "joao@email.com",
+    "curso": "Desenvolvimento Web",
+    "turno": "matutino",
+    "dataIngresso": "2026-05-05"
   },
   {
-    "nome": "Tarefa 5",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "alta",
-    "dataEntrega": "2026-06-04T04:00:00.000Z",
-    "id": "tarefa-005"
+    "id": "5",
+    "nome": "Fernanda Lima",
+    "email": "fernanda@email.com",
+    "curso": "Frontend com Angular",
+    "turno": "vespertino",
+    "dataIngresso": "2026-05-06"
   },
   {
-    "nome": "Tarefa 6",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-05T04:00:00.000Z",
-    "id": "tarefa-006"
+    "id": "6",
+    "nome": "Pedro Santos",
+    "email": "pedro@email.com",
+    "curso": "Angular Básico",
+    "turno": "noturno",
+    "dataIngresso": "2026-05-07"
   },
   {
-    "nome": "Tarefa 7",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-06-06T04:00:00.000Z",
-    "id": "tarefa-007"
+    "id": "7",
+    "nome": "Juliana Costa",
+    "email": "juliana@email.com",
+    "curso": "Desenvolvimento Web",
+    "turno": "matutino",
+    "dataIngresso": "2026-05-08"
   },
   {
-    "nome": "Tarefa 8",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "alta",
-    "dataEntrega": "2026-06-07T04:00:00.000Z",
-    "id": "tarefa-008"
+    "id": "8",
+    "nome": "Rafael Almeida",
+    "email": "rafael@email.com",
+    "curso": "Angular Intermediário",
+    "turno": "vespertino",
+    "dataIngresso": "2026-05-09"
   },
   {
-    "nome": "Tarefa 9",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-08T04:00:00.000Z",
-    "id": "tarefa-009"
+    "id": "9",
+    "nome": "Patrícia Rocha",
+    "email": "patricia@email.com",
+    "curso": "Frontend com Angular",
+    "turno": "noturno",
+    "dataIngresso": "2026-05-10"
   },
   {
-    "nome": "Tarefa 10",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-06-09T04:00:00.000Z",
-    "id": "tarefa-010"
+    "id": "10",
+    "nome": "Lucas Martins",
+    "email": "lucas@email.com",
+    "curso": "Angular Básico",
+    "turno": "matutino",
+    "dataIngresso": "2026-05-11"
   },
   {
-    "nome": "Tarefa 11",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "alta",
-    "dataEntrega": "2026-06-10T04:00:00.000Z",
-    "id": "tarefa-011"
+    "id": "11",
+    "nome": "Camila Ferreira",
+    "email": "camila@email.com",
+    "curso": "Desenvolvimento Web",
+    "turno": "vespertino",
+    "dataIngresso": "2026-05-12"
   },
   {
-    "nome": "Tarefa 12",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-11T04:00:00.000Z",
-    "id": "tarefa-012"
-  },
-  {
-    "nome": "Tarefa 13",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-06-12T04:00:00.000Z",
-    "id": "tarefa-013"
-  },
-  {
-    "nome": "Tarefa 14",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-13T04:00:00.000Z",
-    "id": "tarefa-014"
-  },
-  {
-    "nome": "Tarefa 15",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "alta",
-    "dataEntrega": "2026-06-14T04:00:00.000Z",
-    "id": "tarefa-015"
-  },
-  {
-    "nome": "Tarefa 16",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-06-15T04:00:00.000Z",
-    "id": "tarefa-016"
-  },
-  {
-    "nome": "Tarefa 17",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-16T04:00:00.000Z",
-    "id": "tarefa-017"
-  },
-  {
-    "nome": "Tarefa 18",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "alta",
-    "dataEntrega": "2026-06-17T04:00:00.000Z",
-    "id": "tarefa-018"
-  },
-  {
-    "nome": "Tarefa 19",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-06-18T04:00:00.000Z",
-    "id": "tarefa-019"
-  },
-  {
-    "nome": "Tarefa 20",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-19T04:00:00.000Z",
-    "id": "tarefa-020"
-  },
-  {
-    "nome": "Tarefa 21",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "alta",
-    "dataEntrega": "2026-06-20T04:00:00.000Z",
-    "id": "tarefa-021"
-  },
-  {
-    "nome": "Tarefa 22",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-21T04:00:00.000Z",
-    "id": "tarefa-022"
-  },
-  {
-    "nome": "Tarefa 23",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-06-22T04:00:00.000Z",
-    "id": "tarefa-023"
-  },
-  {
-    "nome": "Tarefa 24",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "alta",
-    "dataEntrega": "2026-06-23T04:00:00.000Z",
-    "id": "tarefa-024"
-  },
-  {
-    "nome": "Tarefa 25",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-24T04:00:00.000Z",
-    "id": "tarefa-025"
-  },
-  {
-    "nome": "Tarefa 26",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-06-25T04:00:00.000Z",
-    "id": "tarefa-026"
-  },
-  {
-    "nome": "Tarefa 27",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "alta",
-    "dataEntrega": "2026-06-26T04:00:00.000Z",
-    "id": "tarefa-027"
-  },
-  {
-    "nome": "Tarefa 28",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-27T04:00:00.000Z",
-    "id": "tarefa-028"
-  },
-  {
-    "nome": "Tarefa 29",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-06-28T04:00:00.000Z",
-    "id": "tarefa-029"
-  },
-  {
-    "nome": "Tarefa 30",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "media",
-    "dataEntrega": "2026-06-29T04:00:00.000Z",
-    "id": "tarefa-030"
-  },
-  {
-    "nome": "Tarefa 31",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "alta",
-    "dataEntrega": "2026-06-30T04:00:00.000Z",
-    "id": "tarefa-031"
-  },
-  {
-    "nome": "Tarefa 32",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-07-01T04:00:00.000Z",
-    "id": "tarefa-032"
-  },
-  {
-    "nome": "Tarefa 33",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "media",
-    "dataEntrega": "2026-07-02T04:00:00.000Z",
-    "id": "tarefa-033"
-  },
-  {
-    "nome": "Tarefa 34",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "alta",
-    "dataEntrega": "2026-07-03T04:00:00.000Z",
-    "id": "tarefa-034"
-  },
-  {
-    "nome": "Tarefa 35",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-07-04T04:00:00.000Z",
-    "id": "tarefa-035"
-  },
-  {
-    "nome": "Tarefa 36",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "media",
-    "dataEntrega": "2026-07-05T04:00:00.000Z",
-    "id": "tarefa-036"
-  },
-  {
-    "nome": "Tarefa 37",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "alta",
-    "dataEntrega": "2026-07-06T04:00:00.000Z",
-    "id": "tarefa-037"
-  },
-  {
-    "nome": "Tarefa 38",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "media",
-    "dataEntrega": "2026-07-07T04:00:00.000Z",
-    "id": "tarefa-038"
-  },
-  {
-    "nome": "Tarefa 39",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-07-08T04:00:00.000Z",
-    "id": "tarefa-039"
-  },
-  {
-    "nome": "Tarefa 40",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "alta",
-    "dataEntrega": "2026-07-09T04:00:00.000Z",
-    "id": "tarefa-040"
-  },
-  {
-    "nome": "Tarefa 41",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "media",
-    "dataEntrega": "2026-07-10T04:00:00.000Z",
-    "id": "tarefa-041"
-  },
-  {
-    "nome": "Tarefa 42",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-07-11T04:00:00.000Z",
-    "id": "tarefa-042"
-  },
-  {
-    "nome": "Tarefa 43",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "alta",
-    "dataEntrega": "2026-07-12T04:00:00.000Z",
-    "id": "tarefa-043"
-  },
-  {
-    "nome": "Tarefa 44",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "media",
-    "dataEntrega": "2026-07-13T04:00:00.000Z",
-    "id": "tarefa-044"
-  },
-  {
-    "nome": "Tarefa 45",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-07-14T04:00:00.000Z",
-    "id": "tarefa-045"
-  },
-  {
-    "nome": "Tarefa 46",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "media",
-    "dataEntrega": "2026-07-15T04:00:00.000Z",
-    "id": "tarefa-046"
-  },
-  {
-    "nome": "Tarefa 47",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "alta",
-    "dataEntrega": "2026-07-16T04:00:00.000Z",
-    "id": "tarefa-047"
-  },
-  {
-    "nome": "Tarefa 48",
-    "estudanteId": "1",
-    "status": "em_andamento",
-    "prioridade": "baixa",
-    "dataEntrega": "2026-07-17T04:00:00.000Z",
-    "id": "tarefa-048"
-  },
-  {
-    "nome": "Tarefa 49",
-    "estudanteId": "1",
-    "status": "pendente",
-    "prioridade": "media",
-    "dataEntrega": "2026-07-18T04:00:00.000Z",
-    "id": "tarefa-049"
-  },
-  {
-    "nome": "Tarefa 50",
-    "estudanteId": "1",
-    "status": "concluida",
-    "prioridade": "alta",
-    "dataEntrega": "2026-07-19T04:00:00.000Z",
-    "id": "tarefa-050"
+    "id": "12",
+    "nome": "Bruno Ribeiro",
+    "email": "bruno@email.com",
+    "curso": "Angular Intermediário",
+    "turno": "noturno",
+    "dataIngresso": "2026-05-13"
   }
 ],
+  "tarefas": [
+    {
+      "nome": "Tarefa 1",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "media",
+      "dataEntrega": "2026-05-31T04:00:00.000Z",
+      "id": "tarefa-001"
+    },
+    {
+      "nome": "Tarefa 2",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "alta",
+      "dataEntrega": "2026-06-01T04:00:00.000Z",
+      "id": "tarefa-002"
+    },
+    {
+      "nome": "Tarefa 3",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-06-02T04:00:00.000Z",
+      "id": "tarefa-003"
+    },
+    {
+      "nome": "Tarefa 4",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-03T04:00:00.000Z",
+      "id": "tarefa-004"
+    },
+    {
+      "nome": "Tarefa 5",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "alta",
+      "dataEntrega": "2026-06-04T04:00:00.000Z",
+      "id": "tarefa-005"
+    },
+    {
+      "nome": "Tarefa 6",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-05T04:00:00.000Z",
+      "id": "tarefa-006"
+    },
+    {
+      "nome": "Tarefa 7",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-06-06T04:00:00.000Z",
+      "id": "tarefa-007"
+    },
+    {
+      "nome": "Tarefa 8",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "alta",
+      "dataEntrega": "2026-06-07T04:00:00.000Z",
+      "id": "tarefa-008"
+    },
+    {
+      "nome": "Tarefa 9",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-08T04:00:00.000Z",
+      "id": "tarefa-009"
+    },
+    {
+      "nome": "Tarefa 10",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-06-09T04:00:00.000Z",
+      "id": "tarefa-010"
+    },
+    {
+      "nome": "Tarefa 11",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "alta",
+      "dataEntrega": "2026-06-10T04:00:00.000Z",
+      "id": "tarefa-011"
+    },
+    {
+      "nome": "Tarefa 12",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-11T04:00:00.000Z",
+      "id": "tarefa-012"
+    },
+    {
+      "nome": "Tarefa 13",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-06-12T04:00:00.000Z",
+      "id": "tarefa-013"
+    },
+    {
+      "nome": "Tarefa 14",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-13T04:00:00.000Z",
+      "id": "tarefa-014"
+    },
+    {
+      "nome": "Tarefa 15",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "alta",
+      "dataEntrega": "2026-06-14T04:00:00.000Z",
+      "id": "tarefa-015"
+    },
+    {
+      "nome": "Tarefa 16",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-06-15T04:00:00.000Z",
+      "id": "tarefa-016"
+    },
+    {
+      "nome": "Tarefa 17",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-16T04:00:00.000Z",
+      "id": "tarefa-017"
+    },
+    {
+      "nome": "Tarefa 18",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "alta",
+      "dataEntrega": "2026-06-17T04:00:00.000Z",
+      "id": "tarefa-018"
+    },
+    {
+      "nome": "Tarefa 19",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-06-18T04:00:00.000Z",
+      "id": "tarefa-019"
+    },
+    {
+      "nome": "Tarefa 20",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-19T04:00:00.000Z",
+      "id": "tarefa-020"
+    },
+    {
+      "nome": "Tarefa 21",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "alta",
+      "dataEntrega": "2026-06-20T04:00:00.000Z",
+      "id": "tarefa-021"
+    },
+    {
+      "nome": "Tarefa 22",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-21T04:00:00.000Z",
+      "id": "tarefa-022"
+    },
+    {
+      "nome": "Tarefa 23",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-06-22T04:00:00.000Z",
+      "id": "tarefa-023"
+    },
+    {
+      "nome": "Tarefa 24",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "alta",
+      "dataEntrega": "2026-06-23T04:00:00.000Z",
+      "id": "tarefa-024"
+    },
+    {
+      "nome": "Tarefa 25",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-24T04:00:00.000Z",
+      "id": "tarefa-025"
+    },
+    {
+      "nome": "Tarefa 26",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-06-25T04:00:00.000Z",
+      "id": "tarefa-026"
+    },
+    {
+      "nome": "Tarefa 27",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "alta",
+      "dataEntrega": "2026-06-26T04:00:00.000Z",
+      "id": "tarefa-027"
+    },
+    {
+      "nome": "Tarefa 28",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-27T04:00:00.000Z",
+      "id": "tarefa-028"
+    },
+    {
+      "nome": "Tarefa 29",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-06-28T04:00:00.000Z",
+      "id": "tarefa-029"
+    },
+    {
+      "nome": "Tarefa 30",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "media",
+      "dataEntrega": "2026-06-29T04:00:00.000Z",
+      "id": "tarefa-030"
+    },
+    {
+      "nome": "Tarefa 31",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "alta",
+      "dataEntrega": "2026-06-30T04:00:00.000Z",
+      "id": "tarefa-031"
+    },
+    {
+      "nome": "Tarefa 32",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-07-01T04:00:00.000Z",
+      "id": "tarefa-032"
+    },
+    {
+      "nome": "Tarefa 33",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "media",
+      "dataEntrega": "2026-07-02T04:00:00.000Z",
+      "id": "tarefa-033"
+    },
+    {
+      "nome": "Tarefa 34",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "alta",
+      "dataEntrega": "2026-07-03T04:00:00.000Z",
+      "id": "tarefa-034"
+    },
+    {
+      "nome": "Tarefa 35",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-07-04T04:00:00.000Z",
+      "id": "tarefa-035"
+    },
+    {
+      "nome": "Tarefa 36",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "media",
+      "dataEntrega": "2026-07-05T04:00:00.000Z",
+      "id": "tarefa-036"
+    },
+    {
+      "nome": "Tarefa 37",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "alta",
+      "dataEntrega": "2026-07-06T04:00:00.000Z",
+      "id": "tarefa-037"
+    },
+    {
+      "nome": "Tarefa 38",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "media",
+      "dataEntrega": "2026-07-07T04:00:00.000Z",
+      "id": "tarefa-038"
+    },
+    {
+      "nome": "Tarefa 39",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-07-08T04:00:00.000Z",
+      "id": "tarefa-039"
+    },
+    {
+      "nome": "Tarefa 40",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "alta",
+      "dataEntrega": "2026-07-09T04:00:00.000Z",
+      "id": "tarefa-040"
+    },
+    {
+      "nome": "Tarefa 41",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "media",
+      "dataEntrega": "2026-07-10T04:00:00.000Z",
+      "id": "tarefa-041"
+    },
+    {
+      "nome": "Tarefa 42",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-07-11T04:00:00.000Z",
+      "id": "tarefa-042"
+    },
+    {
+      "nome": "Tarefa 43",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "alta",
+      "dataEntrega": "2026-07-12T04:00:00.000Z",
+      "id": "tarefa-043"
+    },
+    {
+      "nome": "Tarefa 44",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "media",
+      "dataEntrega": "2026-07-13T04:00:00.000Z",
+      "id": "tarefa-044"
+    },
+    {
+      "nome": "Tarefa 45",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-07-14T04:00:00.000Z",
+      "id": "tarefa-045"
+    },
+    {
+      "nome": "Tarefa 46",
+      "estudanteId": "1",
+      "status": "concluida",
+      "prioridade": "media",
+      "dataEntrega": "2026-07-15T04:00:00.000Z",
+      "id": "tarefa-046"
+    },
+    {
+      "nome": "Tarefa 47",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "alta",
+      "dataEntrega": "2026-07-16T04:00:00.000Z",
+      "id": "tarefa-047"
+    },
+    {
+      "nome": "Tarefa 48",
+      "estudanteId": "1",
+      "status": "em_andamento",
+      "prioridade": "baixa",
+      "dataEntrega": "2026-07-17T04:00:00.000Z",
+      "id": "tarefa-048"
+    },
+    {
+      "nome": "Tarefa 49",
+      "estudanteId": "1",
+      "status": "pendente",
+      "prioridade": "media",
+      "dataEntrega": "2026-07-18T04:00:00.000Z",
+      "id": "tarefa-049"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -30,17 +30,17 @@ export class RelatorioEstudos implements OnInit {
   totalTarefas = computed(() => this.tarefas().length);
 
   totalPendentes = computed(() =>
-    this.tarefas().filter(tarefa => tarefa.status === 'pendente').length
+    this.tarefas().filter(tarefa => tarefa.status === 'PENDENTE').length
   );
 
   totalConcluidas = computed(() =>
-    this.tarefas().filter(tarefa => tarefa.status === 'concluida').length
+    this.tarefas().filter(tarefa => tarefa.status === 'CONCLUIDA').length
   );
 
   tarefasPorPrioridade = computed(() => {
-    const baixa = this.tarefas().filter(tarefa => tarefa.prioridade === 'baixa').length;
-    const media = this.tarefas().filter(tarefa => tarefa.prioridade === 'media').length;
-    const alta = this.tarefas().filter(tarefa => tarefa.prioridade === 'alta').length;
+    const baixa = this.tarefas().filter(tarefa => tarefa.prioridade === 'BAIXA').length;
+    const media = this.tarefas().filter(tarefa => tarefa.prioridade === 'MEDIA').length;
+    const alta = this.tarefas().filter(tarefa => tarefa.prioridade === 'ALTA').length;
 
     return [
       { prioridade: 'Baixa', quantidade: baixa },

@@ -1,10 +1,11 @@
-export type StatusTarefa = 'pendente' | 'em andamento' | 'concluida';
+export type StatusTarefa = 'PENDENTE' | 'EM_ANDAMENTO' | 'CONCLUIDA';
 
-export type PrioridadeTarefa = 'baixa' | 'media' | 'alta';
+export type PrioridadeTarefa = 'BAIXA' | 'MEDIA' | 'ALTA';
 
 export type Tarefa = {
-  id: string;
-  estudanteId: string;
+  id: number;
+  estudanteId: number;
+  estudanteNome: string;
   nome: string;
   status: StatusTarefa;
   prioridade: PrioridadeTarefa;

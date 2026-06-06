@@ -1,47 +1,48 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
-import { TarefaService } from '../../services/tarefa.service';
-import { PrioridadeTarefa, StatusTarefa, Tarefa } from '../../models/tarefa.model';
-import { TarefaCard } from '../../components/tarefa-card/tarefa-card';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmacaoDialog } from '../../components/confirmacao-dialog/confirmacao-dialog';
+import { TarefaCard } from '../../components/tarefa-card/tarefa-card';
+import { PrioridadeTarefa, StatusTarefa } from '../../models/tarefa.model';
 import { EstudanteService } from '../../services/estudante.service';
-import { DatePipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TarefaService } from '../../services/tarefa.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-tarefas',
   imports: [
     FormsModule,
-    MatDatepickerModule,
-    MatProgressSpinnerModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
+    MatDatepickerModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
-    MatDialogModule,
     TarefaCard
   ],
   templateUrl: './tarefas.html',
   styleUrl: './tarefas.css',
 })
 export class Tarefas implements OnInit {
-
   private readonly tarefaService = inject(TarefaService);
   private readonly estudanteService = inject(EstudanteService);
   private readonly dialog = inject(MatDialog);
+  private readonly authService = inject(AuthService);
 
-  filtroSelecionado = signal<'todas' | 'pendente' | 'concluida' | 'alta'>('todas');
-  estudanteSelecionadoId = signal<string | null>(null);
   tarefas = this.tarefaService.listar();
   estudantes = this.estudanteService.listar();
 
@@ -51,78 +52,147 @@ export class Tarefas implements OnInit {
   carregandoEstudantes = this.estudanteService.estaCarregando();
   erroEstudantes = this.estudanteService.mensagemErro();
 
-  novoNome = '';
-  novoStatus: StatusTarefa = 'pendente';
-  novaPrioridade: PrioridadeTarefa = 'media';
-  novoEstudanteId: string | null = null;
-  novaDataEntrega?: Date | null = null;
+  totalRegistrosTarefas = this.tarefaService.totalRegistros();
 
-  idEmEdicao: string | null = null;
+  paginaAtual = 0;
+  tamanhoPagina = 5;
 
-  totalTarefas = computed(() => this.tarefas().length);
-
-  totalPendentes = computed(() =>
-    this.tarefas().filter(t => t.status === 'pendente').length
-  );
-
-  totalConcluidas = computed(() =>
-    this.tarefas().filter(t => t.status === 'concluida').length
-  );
-
-  totalAlta = computed(() =>
-    this.tarefas().filter(t => t.prioridade === 'alta').length
-  );
-
-  tarefasPorEstudante = computed(() => {
-    const mapa: Record<string, number> = {};
-
-    this.estudantes().forEach(estudante => {
-      mapa[estudante.nome] = this.tarefas().filter(
-        tarefa => tarefa.estudanteId === estudante.id
-      ).length;
-    });
-
-    return mapa;
+  busca = new FormControl('', {
+    nonNullable: true,
   });
+
+  termoBusca = signal('');
+
+  filtroSelecionado = signal<'todas' | 'pendente' | 'concluida' | 'alta'>('todas');
+
+  novoNome = '';
+  novoStatus: StatusTarefa = 'PENDENTE';
+  novaPrioridade: PrioridadeTarefa = 'MEDIA';
+  novoEstudanteId: number | null = null;
+  novaDataEntrega: Date | null = null;
+
+  filtroStatus = signal<StatusTarefa | null>(null);
+  filtroPrioridade = signal<PrioridadeTarefa | null>(null);
+  estudanteSelecionadoId = signal<number | null>(null);
+
+
+  idEmEdicao: number | null = null;
 
   tarefasFiltradas = computed(() => {
     let lista = this.tarefas();
 
-    // filtro por estudante
+    const termo = this.termoBusca().toLowerCase().trim();
+
+    if (termo) {
+      lista = lista.filter((tarefa) => {
+        const estudanteNome = this.buscarNomeEstudante(tarefa.estudanteId);
+
+        return (
+          tarefa.nome.toLowerCase().includes(termo) ||
+          tarefa.status.toLowerCase().includes(termo) ||
+          tarefa.prioridade.toLowerCase().includes(termo) ||
+          estudanteNome.toLowerCase().includes(termo)
+        );
+      });
+    }
+
     if (this.estudanteSelecionadoId() !== null) {
       lista = lista.filter(
-        tarefa => tarefa.estudanteId === this.estudanteSelecionadoId()
+        (tarefa) => tarefa.estudanteId === this.estudanteSelecionadoId()
       );
     }
 
-    // filtro geral
     switch (this.filtroSelecionado()) {
       case 'pendente':
-        return lista.filter(t => t.status === 'pendente');
+        return lista.filter((tarefa) => tarefa.status === 'PENDENTE');
 
       case 'concluida':
-        return lista.filter(t => t.status === 'concluida');
+        return lista.filter((tarefa) => tarefa.status === 'CONCLUIDA');
 
       case 'alta':
-        return lista.filter(t => t.prioridade === 'alta');
+        return lista.filter((tarefa) => tarefa.prioridade === 'ALTA');
 
       default:
         return lista;
     }
   });
 
+  totalTarefasPagina = computed(() =>
+    this.tarefasFiltradas().length
+  );
+
+  totalPendentes = computed(() =>
+    this.tarefasFiltradas().filter(
+      (tarefa) => tarefa.status === 'PENDENTE'
+    ).length
+  );
+
+  totalConcluidas = computed(() =>
+    this.tarefasFiltradas().filter(
+      (tarefa) => tarefa.status === 'CONCLUIDA'
+    ).length
+  );
+
+  totalAlta = computed(() =>
+    this.tarefasFiltradas().filter(
+      (tarefa) => tarefa.prioridade === 'ALTA'
+    ).length
+  );
+
   ngOnInit(): void {
-    this.tarefaService.carregar();
     this.estudanteService.carregar();
+    this.carregarTarefas();
+  }
+
+  ehAdmin(): boolean {
+        return this.authService.ehAdmin();
+  }
+
+  carregarTarefas(): void {
+    this.tarefaService.listarPaginado({
+      pagina: this.paginaAtual,
+      tamanho: this.tamanhoPagina,
+      ordenarPor: 'dataEntrega',
+      direcao: 'asc',
+      estudanteId: this.estudanteSelecionadoId(),
+      status: this.filtroStatus(),
+      prioridade: this.filtroPrioridade()
+    });
+  }
+
+  aoMudarPagina(evento: PageEvent): void {
+    this.paginaAtual = evento.pageIndex;
+    this.tamanhoPagina = evento.pageSize;
+
+    this.carregarTarefas();
+  }
+
+  aplicarFiltroGeral(
+    filtro: 'todas' | 'pendente' | 'concluida' | 'alta'
+  ): void {
+    this.filtroSelecionado.set(filtro);
+  }
+
+  pesquisar(): void {
+    this.termoBusca.set(this.busca.value.trim());
+  }
+
+  limparBusca(): void {
+    this.busca.setValue('');
+    this.termoBusca.set('');
   }
 
   salvarFormulario(): void {
+    if (this.novoEstudanteId === null || this.novaDataEntrega === null) {
+      return;
+    }
+
     const dadosFormulario = {
+      estudanteId: this.novoEstudanteId,
       nome: this.novoNome,
-      estudanteId: this.novoEstudanteId ?? '0',
       status: this.novoStatus,
       prioridade: this.novaPrioridade,
-      dataEntrega: this.novaDataEntrega ?? undefined
+      dataEntrega: this.novaDataEntrega
     };
 
     if (this.idEmEdicao === null) {
@@ -132,31 +202,46 @@ export class Tarefas implements OnInit {
     }
 
     this.limparFormulario();
+
+    setTimeout(() => {
+      this.carregarTarefas();
+    }, 300);
   }
 
-  editarTarefaPorId(id: string): void {
+  buscarNomeEstudante(id: number): string {
+    const estudante = this.estudanteService.buscarPorId(id);
+    return estudante ? estudante.nome : 'Não encontrado';
+  }
+
+  editarTarefaPorId(id: number): void {
     const tarefa = this.tarefaService.buscarPorId(id);
 
     if (tarefa) {
       this.idEmEdicao = tarefa.id;
       this.novoNome = tarefa.nome;
-      this.novoEstudanteId = tarefa.estudanteId;
       this.novoStatus = tarefa.status;
       this.novaPrioridade = tarefa.prioridade;
-      this.novaDataEntrega = tarefa.dataEntrega ? new Date(tarefa.dataEntrega) : null;
+      this.novoEstudanteId = tarefa.estudanteId;
+      this.novaDataEntrega = tarefa.dataEntrega
+        ? new Date(tarefa.dataEntrega)
+        : null;
     }
   }
 
-  removerTarefa(id: string): void {
+  removerTarefa(id: number): void {
     const dialogRef = this.dialog.open(ConfirmacaoDialog);
 
-    dialogRef.afterClosed().subscribe((confirmou: string | undefined) => {
-      if (confirmou === 'true') {
+    dialogRef.afterClosed().subscribe((confirmou: boolean) => {
+      if (confirmou) {
         this.tarefaService.remover(id);
 
         if (this.idEmEdicao === id) {
           this.limparFormulario();
         }
+
+        setTimeout(() => {
+          this.carregarTarefas();
+        }, 300);
       }
     });
   }
@@ -165,18 +250,17 @@ export class Tarefas implements OnInit {
     this.limparFormulario();
   }
 
-  private limparFormulario(): void {
+    private limparFormulario(): void {
     this.idEmEdicao = null;
     this.novoNome = '';
-    this.novoStatus = 'pendente';
-    this.novaPrioridade = 'media';
+    this.novoStatus = 'PENDENTE';
+    this.novaPrioridade = 'MEDIA';
     this.novoEstudanteId = null;
     this.novaDataEntrega = null;
   }
 
-  buscarNomeEstudante(id: string): string {
-    const estudante = this.estudanteService.buscarPorId(id);
-    return estudante ? estudante.nome : 'Não encontrado';
+  aplicarFiltroEstudante(id: number | null): void {
+    this.estudanteSelecionadoId.set(id);
   }
 
 }

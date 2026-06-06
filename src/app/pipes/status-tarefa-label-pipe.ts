@@ -6,11 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class StatusTarefaLabelPipe implements PipeTransform {
   transform(valor: string): string {
     switch (valor) {
-      case 'pendente':
+      case 'PENDENTE':
         return 'Pendente';
-      case 'em andamento':
+      case 'EM_ANDAMENTO':
         return 'Em andamento';
-      case 'concluida':
+      case 'CONCLUIDA':
         return 'Concluída';
       default:
         return valor;

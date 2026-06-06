@@ -2,15 +2,23 @@
   <mat-sidenav mode="side" opened class="sidenav">
     <div class="menu-titulo">
       <h2>Menu</h2>
+
+      @if (estaAutenticado() && usuarioLogado()) {
+      <p class="usuario-logado">{{ usuarioLogado()?.nome }}</p>
+
+      <p class="perfil-logado">Perfil: {{ usuarioLogado()?.role }}</p>
+      }
     </div>
 
     <mat-nav-list>
+      @if (estaAutenticado()) {
       <a
         mat-list-item
         routerLink="/"
         routerLinkActive="ativo"
         [routerLinkActiveOptions]="{ exact: true }"
-        ariaCurrentWhenActive="page">
+        ariaCurrentWhenActive="page"
+      >
         <mat-icon>home</mat-icon>
         <span>Início</span>
       </a>
@@ -19,16 +27,13 @@
         mat-list-item
         routerLink="/estudantes"
         routerLinkActive="ativo"
-        ariaCurrentWhenActive="page">
+        ariaCurrentWhenActive="page"
+      >
         <mat-icon>school</mat-icon>
         <span>Estudantes</span>
       </a>
 
-      <a
-        mat-list-item
-        routerLink="/tarefas"
-        routerLinkActive="ativo"
-        ariaCurrentWhenActive="page">
+      <a mat-list-item routerLink="/tarefas" routerLinkActive="ativo" ariaCurrentWhenActive="page">
         <mat-icon>check_circle</mat-icon>
         <span>Tarefas</span>
       </a>
@@ -37,19 +42,29 @@
         mat-list-item
         routerLink="/relatorios"
         routerLinkActive="ativo"
-        ariaCurrentWhenActive="page">
+        ariaCurrentWhenActive="page"
+      >
         <mat-icon>bar_chart</mat-icon>
         <span>Relatórios</span>
       </a>
+      }
 
-      <a
-        mat-list-item
-        routerLink="/sobre"
-        routerLinkActive="ativo"
-        ariaCurrentWhenActive="page">
+      <a mat-list-item routerLink="/sobre" routerLinkActive="ativo" ariaCurrentWhenActive="page">
         <mat-icon>info</mat-icon>
         <span>Sobre</span>
       </a>
+
+      @if (!estaAutenticado()) {
+      <a mat-list-item routerLink="/login" routerLinkActive="ativo" ariaCurrentWhenActive="page">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </a>
+      } @if (estaAutenticado()) {
+      <button mat-button type="button" class="botao-sair" (click)="sair()">
+        <mat-icon>logout</mat-icon>
+        <span>Sair</span>
+      </button>
+      }
     </mat-nav-list>
   </mat-sidenav>
 

@@ -6,11 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TurnoLabelPipe implements PipeTransform {
   transform(valor: string): string {
     switch (valor) {
-      case 'matutino':
+      case 'MATUTINO':
         return 'Matutino';
-      case 'vespertino':
+      case 'VESPERTINO':
         return 'Vespertino';
-      case 'noturno':
+      case 'NOTURNO':
         return 'Noturno';
       default:
         return valor;

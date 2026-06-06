@@ -6,11 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PrioridadeLabelPipe implements PipeTransform {
   transform(valor: string): string {
     switch (valor) {
-      case 'baixa':
+      case 'BAIXA':
         return 'Baixa';
-      case 'media':
+      case 'MEDIA':
         return 'Média';
-      case 'alta':
+      case 'ALTA':
         return 'Alta';
       default:
         return valor;

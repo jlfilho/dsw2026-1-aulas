@@ -1,0 +1,79 @@
+<section class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Entrar no Gerenciador de Estudos</mat-card-title>
+      <mat-card-subtitle> Use uma conta cadastrada na API Spring Boot. </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (erroLogin()) {
+      <div class="erro-login">{{ erroLogin() }}</div>
+      }
+
+      <form [formGroup]="formLogin" (ngSubmit)="entrar()">
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>E-mail</mat-label>
+
+          <input matInput type="email" formControlName="email" placeholder="admin@email.com" />
+
+          @if (campoInvalido('email')) { @if (formLogin.controls.email.errors?.['required']) {
+          <mat-error>O e-mail é obrigatório.</mat-error>
+          } @if (formLogin.controls.email.errors?.['email']) {
+          <mat-error>Informe um e-mail válido.</mat-error>
+          } }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Senha</mat-label>
+
+          <input
+            matInput
+            [type]="ocultarSenha ? 'password' : 'text'"
+            formControlName="password"
+            placeholder="123456"
+          />
+
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="ocultarSenha = !ocultarSenha"
+            [attr.aria-label]="ocultarSenha ? 'Mostrar senha' : 'Ocultar senha'"
+          >
+            <mat-icon> {{ ocultarSenha ? 'visibility' : 'visibility_off' }} </mat-icon>
+          </button>
+
+          @if (campoInvalido('password')) { @if (formLogin.controls.password.errors?.['required']) {
+          <mat-error>A senha é obrigatória.</mat-error>
+          } @if (formLogin.controls.password.errors?.['minlength']) {
+          <mat-error>A senha deve ter pelo menos 6 caracteres.</mat-error>
+          } }
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="botao-login"
+          [disabled]="carregandoLogin()"
+        >
+          @if (carregandoLogin()) { Entrando... } @else { Entrar }
+        </button>
+      </form>
+
+      <div class="dados-teste">
+        <strong>Usuários de teste</strong>
+
+        <p>
+          <strong>ADMIN:</strong>
+          admin@email.com / 123456
+        </p>
+
+        <p>
+          <strong>PROFESSOR:</strong>
+          professor@email.com / 123456
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>

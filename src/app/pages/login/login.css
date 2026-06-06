@@ -1,0 +1,42 @@
+.login-container {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 8px;
+  background-color: #f8f9ff;
+}
+
+.campo {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.botao-login {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.erro-login {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #fff3f3;
+  color: #8a1f1f;
+}
+
+.dados-teste {
+  margin-top: 24px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #eef2ff;
+}
+
+.dados-teste p {
+  margin: 6px 0;
+}

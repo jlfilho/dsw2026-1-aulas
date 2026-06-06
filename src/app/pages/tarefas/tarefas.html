@@ -1,6 +1,6 @@
 <h1>Tarefas</h1>
 
-<p>Cadastre, edite e remova tarefas de estudo.</p>
+<p>Cadastre, edite, remova e consulte tarefas com paginação no servidor e filtros no front-end.</p>
 
 @if (carregandoTarefas() || carregandoEstudantes()) {
   <div class="estado-carregamento">
@@ -54,9 +54,9 @@
         <mat-label>Status</mat-label>
 
         <mat-select name="status" [(ngModel)]="novoStatus" required #status="ngModel">
-          <mat-option value="pendente">Pendente</mat-option>
-          <mat-option value="em andamento">Em andamento</mat-option>
-          <mat-option value="concluida">Concluída</mat-option>
+          <mat-option value="PENDENTE">Pendente</mat-option>
+          <mat-option value="EM_ANDAMENTO">Em andamento</mat-option>
+          <mat-option value="CONCLUIDA">Concluída</mat-option>
         </mat-select>
 
         @if (status.invalid && status.touched) {
@@ -68,32 +68,13 @@
         <mat-label>Prioridade</mat-label>
 
         <mat-select name="prioridade" [(ngModel)]="novaPrioridade" required #prioridade="ngModel">
-          <mat-option value="baixa">Baixa</mat-option>
-          <mat-option value="media">Média</mat-option>
-          <mat-option value="alta">Alta</mat-option>
+          <mat-option value="BAIXA">Baixa</mat-option>
+          <mat-option value="MEDIA">Média</mat-option>
+          <mat-option value="ALTA">Alta</mat-option>
         </mat-select>
 
         @if (prioridade.invalid && prioridade.touched) {
           <mat-error>A prioridade é obrigatória.</mat-error>
-        }
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="campo">
-        <mat-label>Estudante responsável</mat-label>
-
-        <mat-select
-          name="estudanteId"
-          [(ngModel)]="novoEstudanteId"
-          required
-          #estudanteId="ngModel"
-        >
-          @for (estudante of estudantes(); track estudante.id) {
-            <mat-option [value]="estudante.id"> {{ estudante.nome }} </mat-option>
-          }
-        </mat-select>
-
-        @if (estudanteId.invalid && estudanteId.touched) {
-          <mat-error>Selecione um estudante.</mat-error>
         }
       </mat-form-field>
 
@@ -108,11 +89,36 @@
           required
           #dataEntrega="ngModel"
         />
+
         <mat-hint>DD/MM/AAAA</mat-hint>
+
         <mat-datepicker-toggle matIconSuffix [for]="pickerDataEntrega"> </mat-datepicker-toggle>
+
         <mat-datepicker #pickerDataEntrega></mat-datepicker>
+
         @if (dataEntrega.invalid && dataEntrega.touched) {
           <mat-error>A data de entrega é obrigatória.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Estudante responsável</mat-label>
+
+        <mat-select
+          name="estudanteId"
+          [(ngModel)]="novoEstudanteId"
+          required
+          #estudanteId="ngModel"
+        >
+          @for (estudante of estudantes(); track estudante.id) {
+            <mat-option [value]="estudante.id">
+              {{ estudante.nome }}
+            </mat-option>
+          }
+        </mat-select>
+
+        @if (estudanteId.invalid && estudanteId.touched) {
+          <mat-error>Selecione um estudante.</mat-error>
         }
       </mat-form-field>
 
@@ -135,32 +141,76 @@
   </mat-card-content>
 </mat-card>
 
+<section class="indicadores">
+  <mat-card>
+    <strong>Exibidas na página</strong>
+    <span>{{ totalTarefasPagina() }}</span>
+  </mat-card>
+
+  <mat-card>
+    <strong>Pendentes na página</strong>
+    <span>{{ totalPendentes() }}</span>
+  </mat-card>
+
+  <mat-card>
+    <strong>Concluídas na página</strong>
+    <span>{{ totalConcluidas() }}</span>
+  </mat-card>
+
+  <mat-card>
+    <strong>Alta prioridade na página</strong>
+    <span>{{ totalAlta() }}</span>
+  </mat-card>
+</section>
+
 <section class="filtros-tarefas">
-  <!-- filtro por estudante -->
-  <div class="filtro-estudante">
-    <mat-form-field appearance="outline">
-      <mat-label>Filtrar por estudante</mat-label>
+  <mat-form-field appearance="outline" class="campo-busca">
+    <mat-label>Buscar tarefa</mat-label>
 
-      <mat-select
-        [value]="estudanteSelecionadoId()"
-        (selectionChange)="estudanteSelecionadoId.set($event.value)"
-      >
-        <mat-option [value]="null">Todos</mat-option>
+    <input
+      matInput
+      type="text"
+      [formControl]="busca"
+      placeholder="Ex.: Angular, pendente, alta ou nome do estudante"
+      (keyup.enter)="pesquisar()"
+    />
+  </mat-form-field>
 
-        @for (estudante of estudantes(); track estudante.id) {
-          <mat-option [value]="estudante.id"> {{ estudante.nome }} </mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-  </div>
+  <button mat-raised-button color="primary" type="button" (click)="pesquisar()">Pesquisar</button>
+
+  <button mat-button type="button" (click)="limparBusca()">Limpar</button>
+
+  <mat-form-field appearance="outline" class="filtro-estudante">
+    <mat-label>Filtrar por estudante</mat-label>
+
+    <mat-select
+      [value]="estudanteSelecionadoId()"
+      (selectionChange)="aplicarFiltroEstudante($event.value)"
+    >
+      <mat-option [value]="null">Todos</mat-option>
+
+      @for (estudante of estudantes(); track estudante.id) {
+        <mat-option [value]="estudante.id">
+          {{ estudante.nome }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
   <div class="botoes-filtro">
-    <button mat-raised-button (click)="filtroSelecionado.set('todas')">Todas</button>
+    <button mat-raised-button type="button" (click)="aplicarFiltroGeral('todas')">Todas</button>
 
-    <button mat-raised-button (click)="filtroSelecionado.set('pendente')">Pendentes</button>
+    <button mat-raised-button type="button" (click)="aplicarFiltroGeral('pendente')">
+      Pendentes
+    </button>
 
-    <button mat-raised-button (click)="filtroSelecionado.set('concluida')">Concluídas</button>
+    <button mat-raised-button type="button" (click)="aplicarFiltroGeral('concluida')">
+      Concluídas
+    </button>
 
-    <button mat-raised-button (click)="filtroSelecionado.set('alta')">Alta prioridade</button>
+    <button mat-raised-button type="button" (click)="aplicarFiltroGeral('alta')">
+      Alta prioridade
+    </button>
   </div>
 </section>
 
@@ -168,7 +218,7 @@
   <h2>Tarefas cadastradas</h2>
 
   @if (tarefasFiltradas().length === 0) {
-    <p>Nenhuma tarefa cadastrada.</p>
+    <p>Nenhuma tarefa encontrada para os filtros informados.</p>
   } @else {
     @for (tarefa of tarefasFiltradas(); track tarefa.id) {
       <app-tarefa-card
@@ -176,12 +226,23 @@
         [nome]="tarefa.nome"
         [status]="tarefa.status"
         [prioridade]="tarefa.prioridade"
+        [estudanteNome]="tarefa.estudanteNome"
         [dataEntrega]="tarefa.dataEntrega"
         [dadosDebug]="tarefa"
-        [estudanteNome]="buscarNomeEstudante(tarefa.estudanteId)"
+        [podeRemover]="ehAdmin()"
         (editar)="editarTarefaPorId($event)"
         (remover)="removerTarefa($event)"
       />
     }
   }
 </section>
+
+<mat-paginator
+  [length]="totalRegistrosTarefas()"
+  [pageSize]="tamanhoPagina"
+  [pageSizeOptions]="[3, 5, 10, 20]"
+  showFirstLastButtons
+  (page)="aoMudarPagina($event)"
+  aria-label="Paginação de tarefas"
+>
+</mat-paginator>
